@@ -2,6 +2,8 @@
  * Kontrola kódování: Příliš žluťoučký kůň úpěl ďábelské ódy. */
 package logika;
 
+import UI.Mapa;
+
 /**
  * Rozhraní které musí implementovat hra, je na ně navázáno uživatelské rozhraní
  * Rozhranie je sucastou jednoduchej textovej hry.
@@ -51,5 +53,17 @@ public interface IHra
      *  @return     odkaz na herní plán
      */
     public HerniPlan getHerniPlan();
+
+    public void zaregistrujPozorovatele(Mapa aThis);
+
+    public void registerObserver(Mapa aThis);
+
+    public void registerObserverZmenaPtostoru(Mapa aThis);
+
+    public void registerObserverZmenaProstoru(Mapa aThis);
+
+    public void registerObserver();
+
+    public Object getAktualniProstor();
 
 }

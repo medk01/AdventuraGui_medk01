@@ -1,5 +1,7 @@
 package logika;
 
+import UI.Mapa;
+
 /**
  * Třída Hra - třída představující logiku adventury.
  * 
@@ -17,15 +19,15 @@ public class Hra implements IHra {
     public HerniPlan herniPlan;
     private boolean konecHry = false;
     public IZadavaniDotazu zadDotazu;
-
+    private Batoh batoh;
     /**
      *  Vytváří hru a inicializuje místnosti (prostřednictvím třídy HerniPlan) a seznam platných příkazů.
      *  
      *  @param zadDotazu tireda IZadavaniDotazu pre zadanie a odpoved
      */
-    public Hra(IZadavaniDotazu zadDotazu) {
-        herniPlan = new HerniPlan();
-        Batoh batoh = new Batoh();
+    public Hra() {
+        herniPlan = new HerniPlan(this);
+        batoh = new Batoh();
         platnePrikazy = new SeznamPrikazu();
         platnePrikazy.vlozPrikaz(new PrikazNapoveda(platnePrikazy));
         platnePrikazy.vlozPrikaz(new PrikazJdi(herniPlan));
@@ -37,8 +39,11 @@ public class Hra implements IHra {
         platnePrikazy.vlozPrikaz(new PrikazVylozVecZBatohu(herniPlan,batoh));
         platnePrikazy.vlozPrikaz(new PrikazVylozBatoh(herniPlan,batoh));
         platnePrikazy.vlozPrikaz(new PrikazKdeJsem(herniPlan));
-        this.zadDotazu = zadDotazu;
+        //zadDotazu = new zadDotazu();
+        //this.zadDotazu = zadDotazu;
     }
+
+    
 
     /**
      *  Vrátí úvodní zprávu pro hráče.
@@ -49,6 +54,10 @@ public class Hra implements IHra {
         "Ak si tu náhodou, napíš 'napoveda' a možno ťa to tu zaujme\n" +
         "\n" +
         herniPlan.getAktualniProstor().dlouhyPopis();
+    }
+
+    public Batoh getBatoh() {
+        return batoh;
     }
 
     /**
@@ -115,4 +124,34 @@ public class Hra implements IHra {
         return herniPlan;
     }
 
+
+    @Override
+    public void registerObserver(Mapa aThis) {
+    }
+
+    @Override
+    public void registerObserverZmenaPtostoru(Mapa aThis) {
+    }
+    
+    @Override
+    public void registerObserver() {
+    }
+
+    @Override
+    public void zaregistrujPozorovatele(Mapa aThis) {
+        
+    }
+
+    @Override
+    public void registerObserverZmenaProstoru(Mapa aThis) {
+        
+    }
+
+    @Override
+    public Object getAktualniProstor() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    
 }

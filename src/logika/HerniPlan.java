@@ -1,5 +1,10 @@
 package logika;
 
+import java.util.ArrayList;
+import java.util.List;
+import utils.Subject;
+import utils.Observer;
+
 /**
  * Class HerniPlan - třída představující mapu a stav adventury.
  * Trieda je sucastou jednoduchej textovej hry.
@@ -7,17 +12,21 @@ package logika;
  * @author     Katarina Medovarska
  * @version    1.0
  */
-public class HerniPlan {
+public class HerniPlan  implements Subject {
     private static final String strNeuzitocne = "Neužitočné";
     private static final String strUzitocne = "Užitočné";
     private static final String CILOVY_PROSTOR = "bojisko";
     private Prostor aktualniProstor;
+    private Hra hra;
+    
+    private List<Observer> listObservru = new ArrayList<Observer>();
 
     /**
      *  Konstruktor který vytváří jednotlivé prostory a propojuje je pomocí východů.
      *  Jako výchozí aktuální prostor nastaví luku.
      */
-    public HerniPlan() {
+    public HerniPlan(Hra hra) {
+        this.hra = hra;
         zalozProstoryHry();
     }
 
@@ -27,13 +36,13 @@ public class HerniPlan {
      */
     private void zalozProstoryHry() {
         // vytváranie jednotlivých priestorov
-        Prostor luka = new Prostor("luka","Bezpečná čistinka, začiatok hry", false);
-        Prostor bojisko = new Prostor(CILOVY_PROSTOR, "Miesto, kde treba prekonať Nepriateľa", false);
-        Prostor jaskyna = new Prostor("jaskyna","Jaskyňa plná vzácnych kameňov", false);
-        Prostor les = new Prostor("les","Zakázaný les", false);
-        Prostor hrad = new Prostor("hrad","Vždy bezpečné miesto", false);
-        Prostor zahrada = new Prostor("zahrada","Raj oddychu na čerstvom vzduchu", false);
-        Prostor dom = new Prostor("dom","Nikto nevie, kto alebo čo sa v ňom nachádza", true);
+        Prostor luka = new Prostor("luka","Bezpečná čistinka, začiatok hry", false, 255,200);
+        Prostor bojisko = new Prostor(CILOVY_PROSTOR, "Miesto, kde treba prekonať Nepriateľa", false, 470,122);
+        Prostor jaskyna = new Prostor("jaskyna","Jaskyňa plná vzácnych kameňov", false, 85,200);
+        Prostor les = new Prostor("les","Zakázaný les", false, 255,285);
+        Prostor hrad = new Prostor("hrad","Vždy bezpečné miesto", false, 255,122);
+        Prostor zahrada = new Prostor("zahrada","Raj oddychu na čerstvom vzduchu", false, 250,40);
+        Prostor dom = new Prostor("dom","Nikto nevie, kto alebo čo sa v ňom nachádza", true, 95,285);
 
         //nastavenie otázky
         dom.nastavOtazku("Aké je hlavné mesto Slovenska?", "bratislava");
@@ -53,20 +62,20 @@ public class HerniPlan {
         bojisko.setVychod(hrad);
 
         // vytváranie vecí
-        Vec diamant = new Vec("diamant", strUzitocne, true);
-        Vec prutik = new Vec("prutik", strUzitocne, true);
-        Vec talizman = new Vec("talizman", strUzitocne, true);
-        Vec metla = new Vec("metla", strUzitocne, true);
-        Vec sviecka = new Vec("sviecka", strUzitocne, true);
-        Vec prsten = new Vec("prsten", strUzitocne, true);
-        Vec truhlica = new Vec("truhlica", strUzitocne, false);
-        Vec drak = new Vec("drak", strUzitocne, false);
-        Vec balvan = new Vec("balvan", strUzitocne, false);
-        Vec postel = new Vec("postel", strNeuzitocne, false);
-        Vec mapa = new Vec("mapa", strNeuzitocne, true);
-        Vec ucebnica = new Vec("ucebnica", strNeuzitocne, true);
-        Vec skala = new Vec("skala", strNeuzitocne, false);
-        Vec noviny = new Vec("noviny", strNeuzitocne, true);
+        Vec diamant = new Vec("diamant", strUzitocne, true,"diamant.jpg");
+        Vec prutik = new Vec("prutik", strUzitocne, true,"prutik.jpg");
+        Vec talizman = new Vec("talizman", strUzitocne, true,"talitman.jpg");
+        Vec metla = new Vec("metla", strUzitocne, true,"metla.jpg");
+        Vec sviecka = new Vec("sviecka", strUzitocne, true,"sviecka.png");
+        Vec prsten = new Vec("prsten", strUzitocne, true,"prsten.jpg");
+        Vec truhlica = new Vec("truhlica", strUzitocne, false,"truhlica.jpg");
+        Vec drak = new Vec("drak", strUzitocne, false,"drak.jpg");
+        Vec balvan = new Vec("balvan", strUzitocne, false,"balvan.jpg");
+        Vec postel = new Vec("postel", strNeuzitocne, false,"postel.jpg");
+        Vec mapa = new Vec("mapa", strNeuzitocne, true,"mapa.jpg");
+        Vec ucebnica = new Vec("ucebnica", strNeuzitocne, true,"ucebnica.jpg");
+        Vec skala = new Vec("skala", strNeuzitocne, false,"skala.jpg");
+        Vec noviny = new Vec("noviny", strNeuzitocne, true,"noviny.jpg");
         /*
         //testovanie zbierania veci
         Vec test1 = new Vec("test", "test", true);
@@ -114,6 +123,12 @@ public class HerniPlan {
         return aktualniProstor;
     }
 
+    public Hra getHra() {
+        return hra;
+    }
+    
+    
+
     /**
      *  Metoda nastaví aktuální prostor, používá se nejčastěji při přechodu mezi prostory
      *
@@ -121,6 +136,7 @@ public class HerniPlan {
      */
     public void setAktualniProstor(Prostor prostor) {
         aktualniProstor = prostor;
+        notifyAllObservers();
     }
 
     /**
@@ -139,5 +155,22 @@ public class HerniPlan {
 
         return null;
     }
+
+    @Override
+    public void registerObserver(Observer observer) {
+        listObservru.add(observer);
+    }
+
+    @Override
+    public void deleteObserver(Observer observer) {
+        listObservru.remove(observer);
+    }
+
+    @Override
+    public void notifyAllObservers() {
+        for (Observer listObservruItem : listObservru)
+            listObservruItem.update();
+    }
+   
 
 }

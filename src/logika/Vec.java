@@ -16,6 +16,7 @@ public class Vec
     private String nazev;
     private String popis;
     private boolean prenositelna;
+    private String obrazek;
 
     //== Konstruktory a tovární metody =============================================
 
@@ -26,11 +27,12 @@ public class Vec
      *  @param popis popis veci
      *  @param prenositelna ci sa vec da preniest
      */
-    public Vec(String nazev, String popis, boolean prenositelna)
+    public Vec(String nazev, String popis, boolean prenositelna,String obrazek)
     {
         this.nazev = nazev;
         this.popis = popis;
         this.prenositelna = prenositelna;
+        this.obrazek = obrazek;
     }
 
     /**
@@ -41,6 +43,12 @@ public class Vec
     public String getNazev() {
         return nazev;
     }
+
+    public String getObrazek() {
+        return obrazek;
+    }
+    
+    
 
     /**
      * Metoda vracia popis veci

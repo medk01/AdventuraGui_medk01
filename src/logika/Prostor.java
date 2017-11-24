@@ -27,6 +27,9 @@ public class Prostor {
     // premenné pre hádanku
     private String otazka;
     private String odpoved;
+    
+    private double posX;
+    private double posY;
 
     /**
      * Vytvoření prostoru se zadaným popisem, např. "kuchyň", "hala", "trávník
@@ -37,13 +40,15 @@ public class Prostor {
      * @param popis Popis prostoru.
      * @param zamceno urcuje, ci je priestor uzamknuty.
      */
-    public Prostor(String nazev, String popis, boolean zamceno) {
+    public Prostor(String nazev, String popis, boolean zamceno, double posX, double posY) {
         this.nazev = nazev;
         this.popis = popis;
         vychody = new HashSet<>();
         veci = new HashMap<>();
         postavy = new HashMap<>();
         this.zamceno = zamceno;
+        this.posX = posX;
+        this.posY = posY;
     }
 
     /**
@@ -149,13 +154,23 @@ public class Prostor {
             return hledaneProstory.get(0);
         }
     }
+    
+    public String seznamVychoduProPanely() 
+    {
+        String vracenyText = "vychody:";
+        for (Prostor sousedni : vychody) {
+             vracenyText += " " + sousedni.getNazev();
+        }
+        return vracenyText;
+    }
+    
 
     /**
      * Vrací zoznam vychodov z priestoru
      *
      * @return zoznam vychodov z priestoru
      */
-    private String seznamVychodu() {
+    public String seznamVychodu() {
         String vracenyText = "východy: ";
         for (Prostor sousedni : vychody) {
             vracenyText += " " + sousedni.getNazev();
@@ -209,6 +224,12 @@ public class Prostor {
     public Vec najdiVecVProstoru(String nazev) {
         return veci.get(nazev);
     } 
+     
+     public Map<String,Vec> getVeci()
+     {
+         return this.veci;
+     }
+    
 
     /**
      *  odoberie vec z priestoru
@@ -311,5 +332,27 @@ public class Prostor {
      */
     public boolean sOtazkou() {
         return otazka != null;
+    }
+
+    /**
+     * @return the posX
+     */
+    public double getPosX() {
+        return posX;
+    }
+
+    /**
+     * @return the posY
+     */
+    public double getPosY() {
+        return posY;
+    }
+
+    public Object getAktualniProstor() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void registerObserver() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

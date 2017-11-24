@@ -94,6 +94,13 @@ public class Batoh
 
     }
 
+    public Map<String, Vec> getSeznamVeci() {
+        return seznamVeci;
+    }
+    
+    
+    
+
     /**
      * Metoda vrati pocet volnych miest v batohu
      * 
