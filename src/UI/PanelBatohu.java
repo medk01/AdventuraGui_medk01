@@ -14,6 +14,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import logika.HerniPlan;
 import logika.Vec;
 import utils.Observer;
@@ -42,7 +44,7 @@ public class PanelBatohu implements Observer{
         list = new ListView<>();
         data = FXCollections.observableArrayList();
         list.setItems(data);
-        list.setPrefWidth(200);
+        list.setPrefWidth(193);
         
         list.setOnMouseClicked(new EventHandler<MouseEvent>() 
         {
@@ -97,6 +99,7 @@ public class PanelBatohu implements Observer{
         Map<String, Vec> seznam;
         seznam = plan.getHra().getBatoh().getSeznamVeci();
         data.clear();
+        
         for (String x : seznam.keySet()) 
         {
         Vec pomocna = seznam.get(x);

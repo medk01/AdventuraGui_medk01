@@ -113,7 +113,7 @@ public class Main extends Application {
         borderPane.setRight(pravy);
         borderPane.setTop(menu);
         
-        Scene scene = new Scene(borderPane, 900, 500);
+        Scene scene = new Scene(borderPane, 900, 650);
 
         primaryStage.setTitle("Adventúra");
 
@@ -125,7 +125,7 @@ public class Main extends Application {
     }
 
     /**
-     * @param args the command line arguments
+     * ako spúšťať hru (text alebo ui)
      */
     public static void main(String[] args) {
         if (args.length == 0) {

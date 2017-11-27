@@ -10,11 +10,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import logika.HerniPlan;
 import logika.Vec;
 import utils.Observer;
@@ -97,6 +100,7 @@ public class PanelVeci implements Observer{
         Map<String, Vec> seznam;
         seznam = plan.getAktualniProstor().getVeci();
         data.clear();
+        
         for (String x : seznam.keySet()) 
         {
         Vec pomocna = seznam.get(x);

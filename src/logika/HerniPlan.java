@@ -42,7 +42,7 @@ public class HerniPlan  implements Subject {
         Prostor les = new Prostor("les","Zakázaný les", false, 255,285);
         Prostor hrad = new Prostor("hrad","Vždy bezpečné miesto", false, 255,122);
         Prostor zahrada = new Prostor("zahrada","Raj oddychu na čerstvom vzduchu", false, 250,40);
-        Prostor dom = new Prostor("dom","Nikto nevie, kto alebo čo sa v ňom nachádza", true, 95,285);
+        Prostor dom = new Prostor("dom","Nikto nevie, kto alebo čo sa v ňom nachádza", true, 470,290);
 
         //nastavenie otázky
         dom.nastavOtazku("Aké je hlavné mesto Slovenska?", "bratislava");

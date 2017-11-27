@@ -45,13 +45,13 @@ public class Vychody implements Observer
         list = new ListView<>();
         data = FXCollections.observableArrayList();
         list.setItems(data);
-        list.setPrefWidth(100);
+        list.setPrefWidth(107);
         
         list.setOnMouseClicked(new EventHandler<MouseEvent>() 
         {
             @Override
             public void handle(MouseEvent click)
-            {
+            { 
                 if (click.getClickCount() == 2) 
                 {
                     String vstupniPrikaz = "jdi "+list.getSelectionModel().getSelectedItem();
@@ -86,6 +86,7 @@ public class Vychody implements Observer
       {
         String vychody = plan.getAktualniProstor().seznamVychoduProPanely();
         data.clear();
+       
         String[] oddeleneVychody = vychody.split(" ");
         for (int i = 1; i < oddeleneVychody.length; i++) {
             data.add(oddeleneVychody[i]);
